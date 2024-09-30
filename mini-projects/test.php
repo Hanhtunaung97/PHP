@@ -10,11 +10,11 @@
 // print_r(scandir("."));
 // unlink("test.txt");
 // rmdir("test");
-$fileName="test.txt";
-if(!file_exists($fileName)){
-    touch($fileName);
-}
-$fileStream=fopen($fileName,"r");
+// $fileName="test.txt";
+// if(!file_exists($fileName)){
+//     touch($fileName);
+// }
+// $fileStream=fopen($fileName,"r");
 // echo fread($fileStream,1024);
 // echo fgetc($fileStream);
 // echo fgetc($fileStream);
@@ -34,3 +34,6 @@ $fileStream=fopen($fileName,"r");
 // fwrite($fileStream,"Hello spaces");
 // fclose($fileStream);
 // unlink("test.txt");
+$content=file_get_contents("http://forex.cbm.gov.mm/api/latest");
+    $obj=json_decode($content);
+    var_dump($obj);

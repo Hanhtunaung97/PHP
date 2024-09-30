@@ -1,0 +1,4 @@
+
+MYR  to THB  with 2500 amount =19663.220430522    THB 
+THB  to USD  with 25000 amount =771.4880952381    USD 
+MYR  to USD  with 2500 amount =606.79761904762    USD 
