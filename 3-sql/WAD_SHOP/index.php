@@ -1,59 +1,20 @@
-<?php
-// echo "<pre>";
-$server_name = "localhost";
-$user_name = "hha";
-$password = "hanhtunaung97";
-$db_name = "wad_shop";
-$con = mysqli_connect($server_name, $user_name, $password, $db_name);
-
-// var_dump($con);
-
-if (!$con) {
-    die("connection failed" . mysqli_connect_error());
-}
-?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <form action="./save.php" method="post">
-        <input type="text" name="name" id="name" required>
-        <input type="text" name="price" id="price" required>
-        <input type="number" name="stock" id="stock" required>
-        <button>Add</button>
-    </form>
-    <table>
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>name</th>
-                <th>price</th>
-                <th>stock</th>
-                <th>action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            $sql = "SELECT * FROM products";
-            $query = mysqli_query($con, $sql);
-            while ($row = mysqli_fetch_assoc($query)):
-            ?>
-                <tr>
-                    <td><?= $row["id"] ?></td>
-                    <td><?= $row["name"] ?></td>
-                    <td><?= $row["price"] ?></td>
-                    <td><?= $row["stock"] ?></td>
-                    <td> <a href="./edit.php?row_id=<?= $row["id"] ?>">Edit</a> | <a onclick="return confirm('are u sure to delete?')" href="./delete.php?row_id=<?= $row["id"] ?>">delete</a></td>
-                </tr>
-            <?php endwhile; ?>
-        </tbody>
-    </table>
-</body>
-
-</html>
+<?php require_once("./template/header.php") ?>
+<?php require_once("./template/sidebar.php") ?>
+<section class=" bg-gray-100 p-10 rounded-lg">
+    <ol class="flex items-center whitespace-nowrap " aria-label="Breadcrumb">
+        <li class="inline-flex items-center">
+            <a class="flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 dark:focus:text-blue-500" href="./index.php">
+                Home
+            </a>
+            <svg class="flex-shrink-0 mx-2 overflow-visible h-4 w-4 text-gray-400  dark:text-neutral-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6" />
+            </svg>
+        </li>
+    </ol>
+    <hr class="  border-gray-300 my-4">
+    <div class="text-center">
+        <h1 class="text-3xl font-bold mb-5">Our Fruits Shop</h1>
+        <p class="text-lg text-slate-500">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse aspernatur quod at harum ipsum dicta voluptatem ipsa, tenetur voluptates perspiciatis iste voluptatibus, laboriosam rem assumenda vitae inventore dolor magnam. Tempora!</p>
+    </div>
+</section>
+<?php require_once("./template/footer.php") ?>
