@@ -26,6 +26,8 @@
                                 <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">title</th>
                                 <th scope="col" class="px-6 py-3  text-xs font-medium text-gray-500 uppercase dark:text-neutral-500 text-end">short</th>
                                 <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">fee</th>
+                                <th class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Batch Count</th>
+                                <th class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Student Count</th>
                                 <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">create_at</th>
                                 <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">updated_at</th>
                                 <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">action</th>
@@ -33,7 +35,10 @@
                         </thead>
                         <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
                             <?php
-                            $sql = "SELECT * FROM courses";
+                            $sql = "SELECT *,
+                             (SELECT count(id) FROM batches WHERE courses.id=batches.course_id) AS batch_count,
+                             (SELECT count(id) FROM enrollments WHERE enrollments.batch_id IN (SELECT id FROM batches WHERE courses.id=batches.course_id) ) AS student_count 
+                             FROM courses";
                             $query = mysqli_query($con, $sql);
                             while ($row = mysqli_fetch_assoc($query)):
                             ?>
@@ -42,6 +47,8 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200"><?= $row["title"] ?></td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200 text-end"><?= $row["short"] ?></td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200 text-end"><?= $row["fee"] ?></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium text-gray-800 dark:text-gray-200"><?= $row['batch_count'] ?></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium text-gray-800 dark:text-gray-200"><?= $row['student_count'] ?></td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200 text-end"><?= date("Y-m-d", strtotime($row["created_at"])) ?>
                                         <br>
                                         <?= date(" H:i", strtotime($row["created_at"])) ?>

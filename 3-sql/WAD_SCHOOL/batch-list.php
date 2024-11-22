@@ -31,7 +31,7 @@
                         </thead>
                         <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
                             <?php
-                            $sql = "SELECT *,batches.id as batch_id FROM batches LEFT JOIN courses ON batches.course_id = courses.id";
+                            $sql = "SELECT *,batches.id as batch_id,(SELECT count(id) FROM enrollments WHERE batches.id = enrollments.batch_id) AS student_count FROM batches LEFT JOIN courses ON batches.course_id = courses.id";
                             $query = mysqli_query($con, $sql);
                             while ($row = mysqli_fetch_assoc($query)):
                             ?>
@@ -52,7 +52,7 @@
                                             <span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">Closed</span>
                                         <?php endif; ?>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200 text-end"><?= $row["student_limit"] ?></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200 text-end"><?= $row["student_count"] ?> / <?= $row["student_limit"] ?></td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200 text-end"><?= date("Y-m-d", strtotime($row["created_at"])) ?>
                                         <br>
                                         <?= date(" H:i", strtotime($row["created_at"])) ?>

@@ -1,7 +1,7 @@
 <?php require_once("./template/header.php") ?>
 <?php require_once("./template/sidebar.php") ?>
 <?php
-$sql = "SELECT *,students.id as student_id FROM students LEFT JOIN nationality ON nationality.id=students.nationality_id LEFT JOIN gender ON gender.id=students.gender_id ";
+$sql = "SELECT *,students.id as student_id FROM students LEFT JOIN nationality ON nationality.id=students.nationality_id LEFT JOIN gender ON gender.id=students.gender_id ORDER BY student_id DESC";
 $countSql = "SELECT COUNT(id) as student_total FROM students";
 if (isset($_GET['q'])) {
     $q = $_GET['q'];
